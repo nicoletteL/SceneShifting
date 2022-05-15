@@ -51,17 +51,61 @@ class Overworld extends Phaser.Scene {
         this.physics.world.setBounds(this.ROOMWIDTH-this.player.displayWidth/2, this.ROOMHEIGHT-this.player.displayHeight/2, 
             this.ROOMWIDTH+this.player.displayWidth, this.ROOMHEIGHT+this.player.displayHeight/2);
 
+
         this.physics.world.on('worldbounds', (body, blockedUp, blockedDown, blockedLeft, blockedRight) => {
             if (blockedUp) {
+            //    this.cameras.main.flash(250);
+            //    this.cameras.main.shake(250);
                 this.cameras.main.pan(
                     this.ROOMWIDTH*1.5,
                     this.ROOMHEIGHT*0.5,
                     3000,
-                    'Linear'
+                    'Cubic.easeOut'
                 );
                 this.physics.world.setBounds(this.ROOMWIDTH-this.player.displayWidth/2, 0, 
                     this.ROOMWIDTH+this.player.displayWidth, this.ROOMHEIGHT+this.player.displayHeight/2);
+            //    this.ROOMHEIGHT += this.ROOMHEIGHT;
             }
+
+            if (blockedDown) {
+            //    this.cameras.main.flash(250);
+            //    this.cameras.main.shake(250);
+                this.cameras.main.pan(
+                    this.ROOMWIDTH*1.5,
+                    this.ROOMHEIGHT*1.5,
+                    3000,
+                    'Cubic.easeOut'
+                );
+                this.physics.world.setBounds(this.ROOMWIDTH-this.player.displayWidth/2, this.ROOMHEIGHT-this.player.displayHeight/2, 
+                this.ROOMWIDTH+this.player.displayWidth, this.ROOMHEIGHT+this.player.displayHeight/2);
+            //    this.ROOMHEIGHT -= this.ROOMHEIGHT;
+            }
+
+            if (blockedLeft) {
+            //    this.cameras.main.flash(250);
+            //    this.cameras.main.shake(250);
+                this.cameras.main.pan(
+                    this.ROOMWIDTH*.5,
+                    this.ROOMHEIGHT*1.5,
+                    3000,
+                    'Cubic.easeOut'
+                );
+                this.physics.world.setBounds(this.ROOMWIDTH-this.player.displayWidth/2, this.ROOMHEIGHT+this.player.displayHeight/2, 
+                this.ROOMWIDTH-this.player.displayWidth, this.ROOMHEIGHT+this.player.displayHeight/2);
+            }
+
+            if (blockedRight) {
+                //    this.cameras.main.flash(250);
+                //    this.cameras.main.shake(250);
+                    this.cameras.main.pan(
+                        this.ROOMWIDTH*2.5,
+                        this.ROOMHEIGHT*1.5,
+                        3000,
+                        'Cubic.easeOut'
+                    );
+                    this.physics.world.setBounds(2*this.ROOMWIDTH-this.player.displayWidth/2, this.ROOMHEIGHT+this.player.displayHeight/2, 
+                    this.ROOMWIDTH+this.player.displayWidth, this.ROOMHEIGHT+this.player.displayHeight/2);
+                }
         });
 
         // Use Phaser-provided cursor key creation function
